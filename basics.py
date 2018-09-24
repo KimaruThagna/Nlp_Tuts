@@ -1,7 +1,5 @@
 import nltk
 from nltk import sent_tokenize,word_tokenize,wordpunct_tokenize,ne_chunk,pos_tag
-#corpora-body of text eg speech
-#lexicon-words and meanings
 sample='Hello world. This is a sample text by Kimaru Thagana'
 tokenized_sentence=sent_tokenize(sample) # extract sentences from a piece of text
 tokenized_words=word_tokenize(sample) # extract words from a piece of text
