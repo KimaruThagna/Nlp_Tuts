@@ -23,7 +23,12 @@ def find_features(document):
         features[w]=(w in words)
     return features
 
-#https://www.youtube.com/watch?v=-vVskDsHcVc
+print((find_features(movie_reviews.words('neg/cv000_29416.txt'))))
+
+featuresets=[(find_features(rev),category) for (rev,category) in documents]
+train=featuresets[:1900]
+test=featuresets[1900:]
+
 #https://www.youtube.com/watch?v=5xDE06RRMFk
 
 #https://www.youtube.com/watch?v=6WpnxmmkYys
