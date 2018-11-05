@@ -13,3 +13,9 @@ def entities(text):
     return ne_chunk((pos_tag(word_tokenize(text) ) ) )
 comment=entities("When asked about the comments, Obama told the BBC: 'The UK will not be able to negotiate something with the US;")
 comment.pprint()
+
+# using textblob to capture sentiment
+'''
+Polarity- How positive or negative the sentiment is 1.0- +ve -1.0 -ve
+Subjectivity- A measure of how subjective the text is, i.e, influenced by emotions and opinions and is subjected to intermpretation
+'''
