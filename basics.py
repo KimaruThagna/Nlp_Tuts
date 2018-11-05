@@ -1,4 +1,5 @@
 import nltk
+import textblob as tb
 from nltk import sent_tokenize,word_tokenize,wordpunct_tokenize,ne_chunk,pos_tag
 sample='Hello world. This is a sample text by Kimaru Thagana'
 tokenized_sentence=sent_tokenize(sample) # extract sentences from a piece of text
