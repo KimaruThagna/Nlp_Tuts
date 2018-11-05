@@ -23,3 +23,26 @@ text1="The food at radison was not so good"
 text2="I hate you"
 print(tb(text1).sentiment)
 print(tb(text2).sentiment)
+
+'''
+text1="I love the food at radison but the waiters were not good"
+text2="I do not hate you"
+text1="I love the food at radison but the waiters were not good"
+text2="I do not like you"
+text1="I love the food at radison but the waiters were not good"
+text2="I hate you"
+text1="I love the food at radison but the waiters were rude"
+text2="I hate you"
+text1="I love the food at radison. It was nice"
+text2="I hate you"
+text1="The food at radison was awsome"
+text2="I hate you"
+text1="The food at radison was good"
+text2="I hate you"
+text1="The food at radison was really awsome"
+text2="I hate you"
+text1="The food at radison was not so good"
+text2="I hate you
+text1="The food at radison was not so bad"
+text2="I hate you
+'''
