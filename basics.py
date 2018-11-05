@@ -1,5 +1,5 @@
 import nltk
-import textblob as tb
+from textblob import TextBlob as tb
 from nltk import sent_tokenize,word_tokenize,wordpunct_tokenize,ne_chunk,pos_tag
 sample='Hello world. This is a sample text by Kimaru Thagana'
 tokenized_sentence=sent_tokenize(sample) # extract sentences from a piece of text
@@ -19,3 +19,7 @@ comment.pprint()
 Polarity- How positive or negative the sentiment is 1.0- +ve -1.0 -ve
 Subjectivity- A measure of how subjective the text is, i.e, influenced by emotions and opinions and is subjected to intermpretation
 '''
+text1="The food at radison was not so good"
+text2="I hate you"
+print(tb(text1).sentiment)
+print(tb(text2).sentiment)
