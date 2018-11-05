@@ -56,6 +56,6 @@ print("accuracy score: " + str(model.score(X_test, y_test)))
 
 print(model.predict(['i hate this place']))
 '''
-LINK TO YELP ACADEMIC REVIEW DATASET
+LINK TO YELP  MOVIE-REVIEW DATASET
 https://github.com/coding-maniacs/text_classification/blob/master/data/yelp_academic_dataset_review.json.zip
 '''
