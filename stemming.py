@@ -2,7 +2,7 @@
 Purpose of stemming. To ensure variations of a verb in terms of tense all go back to the sme thing to help in decoding the meaning of a sentence
 example of stemmers...brown stemmer, porter stemmer, snowball stemmer
 '''
-from nltk.stem import PorterStemmer,SnowballStemmer
+from nltk.stem import PorterStemmer,SnowballStemmer,WordNetLemmatizer
 from nltk.tokenize import word_tokenize
 ps=PorterStemmer()
 example_words=['python','pythoner','pythoning','pythoned','going','went','go','delayed','coming','running']
@@ -18,3 +18,6 @@ for w in example_words:
     print(sb.stem(w))
 # Comparison with lematization
 print('=================++++++=============++=\n Lematization')
+wl=WordNetLemmatizer()
+for w in example_words:
+    print(wl.lemmatize(w))
