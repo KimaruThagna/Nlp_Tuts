@@ -1,6 +1,7 @@
 import nltk,re,string
 from textblob import TextBlob as tb
 from nltk.corpus import stopwords
+from nltk.stem import WordNetLemmatizer
 from nltk import sent_tokenize,word_tokenize,wordpunct_tokenize,ne_chunk,pos_tag
 sample='Hello world. This is a sample text by Kimaru Thagana'
 tokenized_sentence=sent_tokenize(sample) # extract sentences from a piece of text
@@ -49,7 +50,16 @@ tokens = word_tokenize(input_str)
 result = [i for i in tokens if not i in stop_words]
 print (result)
 
+#5. Stemming. Find example in stemming.py
+#6. Lemmatization. Works the same way as stemming but uses lexical knowledge bases to find
+#the correct root form of a word
+lemmatizer=WordNetLemmatizer()
+input_str="been had done languages cities mice"
+input_str=word_tokenize(input_str)
+for word in input_str:
+    print(lemmatizer.lemmatize(word))
 
+#7 Chunking. An example can be found in chunking.py
 
 '''
 text1="I love the food at radison but the waiters were not good"
