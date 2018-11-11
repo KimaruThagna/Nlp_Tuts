@@ -13,6 +13,7 @@ from sklearn.feature_selection import SelectKBest, chi2
 
 json_data = None
 with open('datasets/yelp_academic_dataset_review.json') as data_file:
+    # file not available due to its large size but a link to the dataset is provided below
     lines = data_file.readlines()# returns a list containing read lines
     joined_lines = "[" + ",".join(lines) + "]"
 
