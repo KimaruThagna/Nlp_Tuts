@@ -24,6 +24,12 @@ text2="I hate you"
 print(tb(text1).sentiment)
 print(tb(text2).sentiment)
 
+
+####################
+# Text Pre-Processing Techniques
+####################
+
+
 '''
 text1="I love the food at radison but the waiters were not good"
 text2="I do not hate you"
