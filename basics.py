@@ -1,5 +1,6 @@
-import nltk,re
+import nltk,re,string
 from textblob import TextBlob as tb
+from nltk.corpus import stopwords
 from nltk import sent_tokenize,word_tokenize,wordpunct_tokenize,ne_chunk,pos_tag
 sample='Hello world. This is a sample text by Kimaru Thagana'
 tokenized_sentence=sent_tokenize(sample) # extract sentences from a piece of text
@@ -36,8 +37,17 @@ print(tb(text2).sentiment)
 input_str = "Box A contains 3 red and 5 white balls, while Box B contains 4 red and 2 blue balls."
 result = re.sub(r"\d+", "", input_str)
 print(result)
-
-
+#3. Removing punctuation
+input_str = "This &is [an] example? {of} string. with.? punctuation!!!!” # Sample string"
+result = input_str.translate(string.maketrans("",""), string.punctuation)
+print(result)
+#4. Removing stop words(they dont convey meaning hence nit useful in processing
+input_str = "NLTK is a leading platform for building Python programs to work with human language data."
+stop_words = set(stopwords.words("english"))
+from nltk.tokenize import word_tokenize
+tokens = word_tokenize(input_str)
+result = [i for i in tokens if not i in stop_words]
+print (result)
 
 
 
