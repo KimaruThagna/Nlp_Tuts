@@ -1,4 +1,4 @@
-import nltk
+import nltk,re
 from textblob import TextBlob as tb
 from nltk import sent_tokenize,word_tokenize,wordpunct_tokenize,ne_chunk,pos_tag
 sample='Hello world. This is a sample text by Kimaru Thagana'
@@ -30,7 +30,16 @@ print(tb(text2).sentiment)
 ####################
 
 #The first process in text processing is normalization. This involves:
-# converting text to lower or upper case using the .lower()/.upper() method on a string
+#1. converting text to lower or upper case using the .lower()/.upper() method on a string
+
+#2. Removing numbers if they arent important in the analysis
+input_str = "Box A contains 3 red and 5 white balls, while Box B contains 4 red and 2 blue balls."
+result = re.sub(r"\d+", "", input_str)
+print(result)
+
+
+
+
 
 '''
 text1="I love the food at radison but the waiters were not good"
