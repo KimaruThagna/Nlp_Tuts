@@ -16,3 +16,4 @@ sb=SnowballStemmer('english')
 print('=================++++++=============++=\n Snowball stemmer')
 for w in example_words:
     print(sb.stem(w))
+# Comparison with lematization
