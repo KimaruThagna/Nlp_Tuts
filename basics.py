@@ -29,6 +29,8 @@ print(tb(text2).sentiment)
 # Text Pre-Processing Techniques
 ####################
 
+#The first process in text processing is normalization. This involves:
+# converting text to lower or upper case using the .lower()/.upper() method on a string
 
 '''
 text1="I love the food at radison but the waiters were not good"
