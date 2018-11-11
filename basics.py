@@ -51,8 +51,9 @@ result = [i for i in tokens if not i in stop_words]
 print (result)
 
 #5. Stemming. Find example in stemming.py
+
 #6. Lemmatization. Works the same way as stemming but uses lexical knowledge bases to find
-#the correct root form of a word
+#the correct root-form of a word
 lemmatizer=WordNetLemmatizer()
 input_str="been had done languages cities mice"
 input_str=word_tokenize(input_str)
