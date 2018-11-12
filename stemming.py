@@ -17,6 +17,7 @@ print('=================++++++=============++=\n Snowball stemmer')
 for w in example_words:
     print(sb.stem(w))
 # Comparison with lematization
+#in lemmatization, you can pass a part of speech parameter (pos) and give which part of speeh an inetm belongs to eg lemmatize("better",pos="a")
 print('=================++++++=============++=\n Lematization')
 wl=WordNetLemmatizer()
 for w in example_words:
