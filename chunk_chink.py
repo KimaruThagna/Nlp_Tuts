@@ -18,6 +18,7 @@ def process_content():
             chunkParser=nltk.RegexpParser
             chunked=chunkParser.parse(tagged)
             print(chunked)
+            chunked.draw()# visual representation
 
     except Exception as e:
         print(str(e))
