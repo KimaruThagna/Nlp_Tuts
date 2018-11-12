@@ -24,3 +24,28 @@ def process_content():
         print(str(e))
 
 process_content()
+# chunking- Grouping things
+#chinking- Removing some things from a chunk
+
+#CHINKING
+
+def process2_content():
+
+    try:
+        for i in tokenized:
+            words=nltk.word_tokenize(i)
+            tagged=nltk.pos_tag(words)
+            print(tagged)
+            #the angle bracket is to introduce parts of speech abbreviations
+            chunkGram='''  Chunk:{<.*>+}
+                            }< VB.?|IN|DT>+ {  '''# chinking part, specify what you dont want
+            # regex pattern to define the required parts of speech
+            chunkParser=nltk.RegexpParser
+            chunked=chunkParser.parse(tagged)
+            print(chunked)
+            chunked.draw()# visual representation
+
+    except Exception as e:
+        print(str(e))
+
+process2_content()
