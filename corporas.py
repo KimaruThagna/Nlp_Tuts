@@ -3,3 +3,4 @@ from nltk.tokenize import sent_tokenize`
 
 sample_text=gutenberg.raw('bible-kjv.txt')
 tokenized_sentense=sent_tokenize(sample_text)
+print(tokenized_sentense[1:10])
