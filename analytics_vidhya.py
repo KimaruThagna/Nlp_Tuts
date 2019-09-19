@@ -6,6 +6,7 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+from nltk.stem import PorterStemmer, WordNetLemmatizer
 
 # racist/ sexist tweets are labelled with 1 else, 0
 train  = pd.read_csv('datasets/train_E6oV3lV.csv')
@@ -46,5 +47,24 @@ def remove_pattern(input_txt, pattern):
 Tweet cleaning steps
 1. Remove twitter handles since they dont add to the sentiment of the tweet(denoted by @user due to privacy)
 2. Remove punctuation numbers and special characters
-3. Normalize text data. eg stemming
+3. Remove short words of size 3 or less. They dont have much lexical meaning.
+(Maybe, will run model with and without this step to view difference)
+4. Normalize text data. eg stemming
 '''
+combined['tidy_tweet'] = np.vectorize(remove_pattern)(combined['tweet'], "@[\w]*")
+combined['tidy_tweet'] = combined['tidy_tweet'].str.replace("[^a-zA-Z#]", " ") # replace everything except letters and #
+combined['tidy_tweet'] = combined['tidy_tweet'].apply(lambda x: ' '.join([w for w in x.split() if len(w)>3]))
+
+# Normalization
+tokenized_tweet = combined['tidy_tweet'].apply(lambda x: x.split()) # tokenizing
+print(tokenized_tweet.head())
+
+stemmer = PorterStemmer()
+lemmetizer = WordNetLemmatizer() # will consider in terms of accuracy of final model
+
+tokenized_tweet = tokenized_tweet.apply(lambda x: [stemmer.stem(i) for i in x]) # stemming
+# stitch items back together
+for i in range(len(tokenized_tweet)):
+    tokenized_tweet[i] = ' '.join(tokenized_tweet[i])
+combined['tidy_tweet'] = tokenized_tweet
+print(combined.head())
