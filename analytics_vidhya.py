@@ -8,5 +8,5 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 
-train  = pd.read_csv('train_E6oV3lV.csv')
-test = pd.read_csv('test_tweets_anuFYb8.csv')
+train  = pd.read_csv('datasets/train_E6oV3lV.csv')
+test = pd.read_csv('datasets/test_tweets_anuFYb8.csv')
