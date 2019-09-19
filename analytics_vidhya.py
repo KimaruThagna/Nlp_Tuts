@@ -7,6 +7,7 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 from nltk.stem import PorterStemmer, WordNetLemmatizer
+from wordcloud import WordCloud
 
 # racist/ sexist tweets are labelled with 1 else, 0
 train  = pd.read_csv('datasets/train_E6oV3lV.csv')
@@ -68,3 +69,30 @@ for i in range(len(tokenized_tweet)):
     tokenized_tweet[i] = ' '.join(tokenized_tweet[i])
 combined['tidy_tweet'] = tokenized_tweet
 print(combined.head())
+
+'''
+STORY GENERATION AND VISUALIZATION OF CLEANED TWEEETS
+'''
+# all words
+all_words = ' '.join([text for text in combined['tidy_tweet']])
+wordcloud = WordCloud(width=800, height=500, random_state=21, max_font_size=110).generate(all_words)
+plt.figure(figsize=(10, 7))
+plt.imshow(wordcloud, interpolation="bilinear")
+plt.axis('off')
+plt.show()
+
+# Non Racist/sexist tweets
+normal_words =' '.join([text for text in combined['tidy_tweet'][combined['label'] == 0]])
+wordcloud = WordCloud(width=800, height=500, random_state=21, max_font_size=110).generate(normal_words)
+plt.figure(figsize=(10, 7))
+plt.imshow(wordcloud, interpolation="bilinear")
+plt.axis('off')
+plt.show()
+
+# racist/sexist tweets
+negative_words = ' '.join([text for text in combined['tidy_tweet'][combined['label'] == 1]])
+wordcloud = WordCloud(width=800, height=500, random_state=21, max_font_size=110).generate(negative_words)
+plt.figure(figsize=(10, 7))
+plt.imshow(wordcloud, interpolation="bilinear")
+plt.axis('off')
+plt.show()
