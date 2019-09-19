@@ -79,15 +79,9 @@ wordcloud = WordCloud(width=800, height=500, random_state=21, max_font_size=110)
 plt.figure(figsize=(10, 7))
 plt.imshow(wordcloud, interpolation="bilinear")
 plt.axis('off')
+plt.title("WORDCLOUD FOR NON RACIST/SEXIST TWEETS")
 plt.show()
 
-# Non Racist/sexist tweets
-normal_words =' '.join([text for text in combined['tidy_tweet'][combined['label'] == 0]])
-wordcloud = WordCloud(width=800, height=500, random_state=21, max_font_size=110).generate(normal_words)
-plt.figure(figsize=(10, 7))
-plt.imshow(wordcloud, interpolation="bilinear")
-plt.axis('off')
-plt.show()
 
 # racist/sexist tweets
 negative_words = ' '.join([text for text in combined['tidy_tweet'][combined['label'] == 1]])
@@ -95,4 +89,45 @@ wordcloud = WordCloud(width=800, height=500, random_state=21, max_font_size=110)
 plt.figure(figsize=(10, 7))
 plt.imshow(wordcloud, interpolation="bilinear")
 plt.axis('off')
+plt.title("WORDCLOUD FOR RACIST/SEXIST TWEETS")
+plt.show()
+
+# impact of #(hastags) on tweets
+#prepare a list of # for each class
+# function to collect hashtags
+def hashtag_extract(x):
+    hashtags = []    # Loop over the words in the tweet
+    for i in x:
+        ht = re.findall(r"#(\w+)", i)
+        hashtags.append(ht)
+    return hashtags
+
+# extracting hashtags from non racist/sexist tweets
+HT_regular = hashtag_extract(combined['tidy_tweet'][combined['label'] == 0])
+# extracting hashtags from racist/sexist tweets
+HT_negative = hashtag_extract(combined['tidy_tweet'][combined['label'] == 1])
+# unnesting list
+HT_regular = sum(HT_regular,[])
+HT_negative = sum(HT_negative,[])
+
+# plot top n hashtags for positive class
+a = nltk.FreqDist(HT_regular)
+d = pd.DataFrame({'Hashtag': list(a.keys()),'Count': list(a.values())})
+# selecting top 20 most frequent hashtags
+d = d.nlargest(columns="Count", n = 20)
+plt.figure(figsize=(16,5))
+ax = sns.barplot(data=d, x= "Hashtag", y = "Count")
+ax.set(ylabel = 'Count')
+plt.title("Frequency Distribution for Non Racist/Sexist tweets")
+plt.show()
+# frequency distribution plot for racist/sexist tweets
+
+b = nltk.FreqDist(HT_negative)
+e = pd.DataFrame({'Hashtag': list(b.keys()), 'Count': list(b.values())})
+# selecting top 20 most frequent hashtags
+e = e.nlargest(columns="Count", n = 20)
+plt.figure(figsize=(16,5))
+ax = sns.barplot(data=e, x= "Hashtag", y = "Count")
+ax.set(ylabel = 'Count')
+plt.title("Frequency Distribution for Racist/Sexist tweets")
 plt.show()
