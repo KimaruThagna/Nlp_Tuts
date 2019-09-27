@@ -1,7 +1,7 @@
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import f1_score
-from analytics_vidhya import bow,train, np, test,tfidf
+from analytics_vidhya import bow,train, np, test,tfidf,wordvec_df, docvec_df
 lreg = LogisticRegression()
 # Extracting train and test BoW features
 train_bow = bow[:31962,:]
@@ -36,4 +36,30 @@ lreg.fit(xtrain_tfidf, ytrain)
 prediction = lreg.predict_proba(xvalid_tfidf)
 prediction_int = prediction[:,1] >= 0.3
 prediction_int = prediction_int.astype(np.int)
-f1_score(yvalid, prediction_int) # calculating f1 score for the validation set
+tf_idf_f1_score = f1_score(yvalid, prediction_int) # calculating f1 score for the validation set
+print(f'F1 score for logistic regression on the TF-IDF features{tf_idf_f1_score}')
+
+# Word2Vec features
+train_w2v = wordvec_df.iloc[:31962,:]
+test_w2v = wordvec_df.iloc[31962:,:]
+xtrain_w2v = train_w2v.iloc[ytrain.index,:]
+xvalid_w2v = train_w2v.iloc[yvalid.index,:]
+lreg.fit(xtrain_w2v, ytrain)
+prediction = lreg.predict_proba(xvalid_w2v)
+prediction_int = prediction[:,1] >= 0.3
+prediction_int = prediction_int.astype(np.int)
+word2vec_f1_score = f1_score(yvalid, prediction_int)
+print(f'F1 score for logistic regression on the Word2Vec features{word2vec_f1_score}')
+
+# doc to vec features
+
+train_d2v = docvec_df.iloc[:31962,:]
+test_d2v = docvec_df.iloc[31962:,:]
+xtrain_d2v = train_d2v.iloc[ytrain.index,:]
+xvalid_d2v = train_d2v.iloc[yvalid.index,:]
+lreg.fit(xtrain_d2v, ytrain)
+prediction = lreg.predict_proba(xvalid_d2v)
+prediction_int = prediction[:,1] >= 0.3
+prediction_int = prediction_int.astype(np.int)
+doc2vec_f1_score = f1_score(yvalid, prediction_int)
+print(f'F1 score for logistic regression on the Doc2Vec features{doc2vec_f1_score}')
