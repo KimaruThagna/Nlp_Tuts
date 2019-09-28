@@ -130,3 +130,57 @@ print(f'Best params: {best_params[0]}, {best_params[1]}, F1 Score: { max_f1}')
 
 params['subsample'] = best_params[0]
 params['colsample_bytree'] = best_params[1]
+
+# Tuning the learning rate
+
+max_f1 = 0.
+best_params = None
+for eta in [.3, .2, .1, .05, .01, .005]:
+    print(f'CV with eta={eta}')
+     # Update ETA
+    params['eta'] = eta
+     # Run CV
+    cv_results = xgb.cv(
+        params,
+        dtrain,
+        feval= custom_eval,
+        num_boost_round=1000,
+        maximize=True,
+        seed=16,
+        nfold=5,
+        early_stopping_rounds=20
+    )
+
+     # Finding best F1 Score
+    mean_f1 = cv_results['test-f1_score-mean'].max()
+    boost_rounds = cv_results['test-f1_score-mean'].argmax()
+    print(f'\tF1 Score {mean_f1} for {boost_rounds}')
+    if mean_f1 > max_f1:
+        max_f1 = mean_f1
+        best_params = eta
+print(f'Best params: {best_params}, F1 Score: {max_f1}')
+params['eta'] = best_params
+
+# final parameters for best result
+# final_params = {'colsample': 0.9,
+#  'colsample_bytree': 0.5, 'eta': 0.1,
+#  'max_depth': 8, 'min_child_weight': 6,
+#  'objective': 'binary:logistic',
+#  'subsample': 0.9}
+
+# train model again with the tuned parameters
+xgb_model = xgb.train(
+    params,
+    dtrain,
+    feval= custom_eval,
+    num_boost_round= 1000,
+    maximize=True,
+    evals=[(dvalid, "Validation")],
+    early_stopping_rounds=10
+ )
+
+# final submission
+test_pred = xgb_model.predict(dtest)
+test['label'] = (test_pred >= 0.3).astype(np.int)
+submission = test[['id','label']]
+submission.to_csv('sub_xgb_w2v_finetuned.csv', index=False)
