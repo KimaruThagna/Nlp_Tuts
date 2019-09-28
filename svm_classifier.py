@@ -1,5 +1,8 @@
 from sklearn import svm
 from logistic_regression import *
+
+
+print(f'>>>>>>>>>>>>>>SVM<<<<<<<<<<<<<<<<<<')
 svc = svm.SVC(kernel='linear', C=1, probability=True).fit(xtrain_bow, ytrain)
 prediction = svc.predict_proba(xvalid_bow)
 prediction_int = prediction[:,1] >= 0.3

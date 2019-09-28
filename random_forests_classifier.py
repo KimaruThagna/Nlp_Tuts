@@ -1,5 +1,7 @@
 from logistic_regression import *
 from sklearn.ensemble import RandomForestClassifier
+
+print(f'>>>>>>>>>>>>>>RANDOM FOREST<<<<<<<<<<<<<<<<<<<')
 rf = RandomForestClassifier(n_estimators=400, random_state=11).fit(xtrain_bow, ytrain)
 prediction = rf.predict(xvalid_bow)
 # validation score

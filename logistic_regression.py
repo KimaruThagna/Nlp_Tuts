@@ -8,7 +8,7 @@ train_bow = bow[:31962,:]
 test_bow = bow[31962:,:]
 # splitting data into training and validation set
 xtrain_bow, xvalid_bow, ytrain, yvalid = train_test_split(train_bow, train['label'], random_state=42, test_size=0.3)
-
+print(f'>>>>>>>>>>>>>>LOGISTIC REGRESSION<<<<<<<<<<<<<<<<<<<<<<<<<<<<<')
 # training the model
 lreg.fit(xtrain_bow, ytrain)
 prediction = lreg.predict_proba(xvalid_bow) # predicting on the validation set

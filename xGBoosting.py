@@ -1,7 +1,7 @@
 from xgboost import XGBClassifier
 import xgboost as xgb
 from logistic_regression import *
-
+print(f'>>>>>>>>>>>>>>XGBOOST<<<<<<<<<<<')
 # BOW features
 xgb_model = XGBClassifier(max_depth=6, n_estimators=1000).fit(xtrain_bow, ytrain)
 prediction = xgb_model.predict(xvalid_bow)
