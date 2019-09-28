@@ -16,3 +16,13 @@ submission.to_csv('sub_xgb_bow.csv', index=False)
 xgb = XGBClassifier(max_depth=6, n_estimators=1000).fit(xtrain_tfidf, ytrain)
 prediction = xgb.predict(xvalid_tfidf)
 print(f'F1 score for XGBoost TF-IDF features {f1_score(yvalid, prediction)}')
+
+# Word2Vec features
+xgb = XGBClassifier(max_depth=6, n_estimators=1000, nthread= 3).fit(xtrain_w2v, ytrain)
+prediction = xgb.predict(xvalid_w2v)
+print(f'F1 score for XGBoost Word2Vec features {f1_score(yvalid, prediction)}')
+
+# doc2Vec
+xgb = XGBClassifier(max_depth=6, n_estimators=1000, nthread= 3).fit(xtrain_d2v, ytrain)
+prediction = xgb.predict(xvalid_d2v)
+print(f'F1 score for XGBoost Doc2Vec features {f1_score(yvalid, prediction)}')
