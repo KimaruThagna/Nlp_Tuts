@@ -11,7 +11,7 @@ print(f'F1 score for XGBoost BOW features {f1_score(yvalid, prediction)}')
 test_pred = xgb_model.predict(test_bow)
 test['label'] = test_pred
 submission = test[['id','label']]
-submission.to_csv('sub_xgb_bow.csv', index=False)
+submission.to_csv('Submissions/sub_xgb_bow.csv', index=False)
 
 # TF-IDF features
 xgb = XGBClassifier(max_depth=6, n_estimators=1000).fit(xtrain_tfidf, ytrain)
@@ -183,4 +183,4 @@ xgb_model = xgb.train(
 test_pred = xgb_model.predict(dtest)
 test['label'] = (test_pred >= 0.3).astype(np.int)
 submission = test[['id','label']]
-submission.to_csv('sub_xgb_w2v_finetuned.csv', index=False)
+submission.to_csv('Submissions/sub_xgb_w2v_finetuned.csv', index=False)

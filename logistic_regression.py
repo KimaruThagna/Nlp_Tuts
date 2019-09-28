@@ -25,7 +25,7 @@ test_pred_int = test_pred[:,1] >= 0.3
 test_pred_int = test_pred_int.astype(np.int)
 test['label'] = test_pred_int
 submission = test[['id','label']]
-submission.to_csv('sub_lreg_bow.csv', index=False) # writing data to a CSV file
+submission.to_csv('Submissions/sub_lreg_bow.csv', index=False) # writing data to a CSV file
 
 # tf-idf featureset
 train_tfidf = tfidf[:31962,:]

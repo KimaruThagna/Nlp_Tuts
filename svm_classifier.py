@@ -11,7 +11,7 @@ test_pred_int = test_pred[:,1] >= 0.3
 test_pred_int = test_pred_int.astype(np.int)
 test['label'] = test_pred_int
 submission = test[['id','label']]
-submission.to_csv('sub_svm_bow.csv', index=False)
+submission.to_csv('Submissions/sub_svm_bow.csv', index=False)
 
 # using TF-IDF features
 svc = svm.SVC(kernel='linear',
