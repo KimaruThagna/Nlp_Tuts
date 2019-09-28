@@ -20,3 +20,9 @@ print(f'F1 score for RandomForest TF-IDF features {f1_score(yvalid, prediction)}
 rf = RandomForestClassifier(n_estimators=400, random_state=11).fit(xtrain_w2v, ytrain)
 prediction = rf.predict(xvalid_w2v)
 print(f'F1 score for RandomForest Word2Vec features {f1_score(yvalid, prediction)}')
+
+# doc2vec
+rf = RandomForestClassifier(n_estimators=400, random_state=11).fit(xtrain_d2v, ytrain)
+prediction = rf.predict(xvalid_d2v)
+print(f'F1 score for RandomForest Doc2Vec features {f1_score(yvalid, prediction)}')
+
