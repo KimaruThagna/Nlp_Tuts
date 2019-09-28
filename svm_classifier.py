@@ -29,3 +29,9 @@ prediction_int = prediction[:,1] >= 0.3
 prediction_int = prediction_int.astype(np.int)
 print(f'F1 score for SVM TF-IDF features {f1_score(yvalid, prediction_int)}')
 
+# using doc2Vec features
+svc = svm.SVC(kernel='linear', C=1, probability=True).fit(xtrain_d2v, ytrain)
+prediction = svc.predict_proba(xvalid_d2v)
+prediction_int = prediction[:,1] >= 0.3
+prediction_int = prediction_int.astype(np.int)
+f1_score(yvalid, prediction_int)
