@@ -1,5 +1,4 @@
 from sklearn import svm
-from sklearn.metrics import f1_score
 from logistic_regression import *
 svc = svm.SVC(kernel='linear', C=1, probability=True).fit(xtrain_bow, ytrain)
 prediction = svc.predict_proba(xvalid_bow)
