@@ -62,17 +62,17 @@ gridsearch_params = [
 ]
 max_f1 = 0.  # initializing with 0
 best_params = None
+cv_results = {}
 for max_depth, min_child_weight in gridsearch_params:
-    print("CV with max_depth={}, min_child_weight={}".format(
-        max_depth,
-        min_child_weight))
+    print(f'CV with max_depth={max_depth}, min_child_weight={min_child_weight}')
     # Update our parameters
     params['max_depth'] = max_depth
     params['min_child_weight'] = min_child_weight
 
     # Cross-validation
     cv_results = xgb.cv(params,
-                        dtrain, feval=custom_eval,
+                        dtrain,
+                        feval=custom_eval,
                         num_boost_round=200,
                         maximize=True,
                         seed=16,
@@ -82,11 +82,15 @@ for max_depth, min_child_weight in gridsearch_params:
 # Finding best F1 Score
 
 mean_f1 = cv_results['test-f1_score-mean'].max()
-
 boost_rounds = cv_results['test-f1_score-mean'].argmax()
-print("\tF1 Score {} for {} rounds".format(mean_f1, boost_rounds))
+print(f'\tF1 Score {mean_f1} for {boost_rounds}')
 if mean_f1 > max_f1:
     max_f1 = mean_f1
     best_params = (max_depth, min_child_weight)
 
-print("Best params: {}, {}, F1 Score: {}".format(best_params[0], best_params[1], max_f1))
+print(f'Best params: {best_params[0]}, {best_params[1]}, F1 Score: { max_f1}')
+
+#Updating max_depth and min_child_weight parameters.
+
+params['max_depth'] = best_params[0]
+params['min_child_weight'] = best_params[1]
