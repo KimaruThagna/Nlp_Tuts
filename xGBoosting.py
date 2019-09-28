@@ -94,3 +94,39 @@ print(f'Best params: {best_params[0]}, {best_params[1]}, F1 Score: { max_f1}')
 
 params['max_depth'] = best_params[0]
 params['min_child_weight'] = best_params[1]
+
+#Tuning subsample and colsample
+
+gridsearch_params = [
+    (subsample, colsample)
+    for subsample in [i/10. for i in range(5,10)]
+    for colsample in [i/10. for i in range(5,10)] ]
+max_f1 = 0.
+best_params = None
+for subsample, colsample in gridsearch_params:
+    print(f'CV with subsample={subsample}, colsample={colsample}')
+     # Update our parameters
+    params['colsample'] = colsample
+    params['subsample'] = subsample
+    cv_results = xgb.cv(
+        params,
+        dtrain,
+        feval= custom_eval,
+        num_boost_round=200,
+        maximize=True,
+        seed=16,
+        nfold=5,
+        early_stopping_rounds=10
+    )
+     # Finding best F1 Score
+    mean_f1 = cv_results['test-f1_score-mean'].max()
+    boost_rounds = cv_results['test-f1_score-mean'].argmax() # position of the maximum element
+    print(f'\tF1 Score {mean_f1} for {boost_rounds}')
+    if mean_f1 > max_f1:
+        max_f1 = mean_f1
+        best_params = (subsample, colsample)
+
+print(f'Best params: {best_params[0]}, {best_params[1]}, F1 Score: { max_f1}')
+
+params['subsample'] = best_params[0]
+params['colsample_bytree'] = best_params[1]
