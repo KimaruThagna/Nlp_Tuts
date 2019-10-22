@@ -224,10 +224,10 @@ model_d2v = gensim.models.Doc2Vec(dm=1, # dm = 1 for ‘distributed memory’ mo
 model_d2v.build_vocab([i for i in tqdm(labeled_tweets)])
 model_d2v.train(labeled_tweets, total_examples= len(combined['tidy_tweet']), epochs=15)
 # prepare doc2Vec featureset
-docvec_arrays = np.zeros((len(tokenized_tweet), 200))
+docvec_arrays = np.zeros((len(tokenized_tweet), 100))
 
 for i in range(len(combined)):
-    docvec_arrays[i,:] = model_d2v.docvecs[i].reshape((1,200))
+    docvec_arrays[i,:] = model_d2v.docvecs[i].reshape((1,100))
 
 docvec_df = pd.DataFrame(docvec_arrays)
 print("DOCVEC DATAFRAME")
