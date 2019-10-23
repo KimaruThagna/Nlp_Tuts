@@ -2,11 +2,13 @@ from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.feature_selection import chi2
 from sklearn.naive_bayes import MultinomialNB
 import pandas as pd
 from io import StringIO
 import seaborn as sns
 import matplotlib.pyplot as plt
+import numpy as np
 df = pd.read_csv('datasets/Consumer_Complaints.csv')
 #print(f'Consumer complaints dataset view\n{df.head()}')
 
@@ -32,3 +34,23 @@ tfidf = TfidfVectorizer(sublinear_tf=True, min_df=5, norm='l2', encoding='latin-
 features = tfidf.fit_transform(df.Consumer_complaint_narrative).toarray()
 labels = df.category_id
 print(f' Extracted features {features.shape}')
+
+# find correlated terms
+N = 2
+for Product, category_id in sorted(category_to_id.items()):
+  features_chi2 = chi2(features, labels == category_id)
+  indices = np.argsort(features_chi2[0])# return indices of indirectly sorted array
+  feature_names = np.array(tfidf.get_feature_names())[indices] # obtain names
+  unigrams = [v for v in feature_names if len(v.split(' ')) == 1]
+  bigrams = [v for v in feature_names if len(v.split(' ')) == 2]
+  print(f'# {Product}')
+  print("  . Most correlated unigrams:\n. {}".format('\n. '.join(unigrams[-N:])))
+  print("  . Most correlated bigrams:\n. {}".format('\n. '.join(bigrams[-N:])))
+
+# ML classification
+X_train, X_test, y_train, y_test = train_test_split(df['Consumer_complaint_narrative'], df['Product'], random_state = 0)
+count_vect = CountVectorizer()
+tfidf_transformer = TfidfTransformer()
+X_train_counts = count_vect.fit_transform(X_train)
+X_train_tfidf = tfidf_transformer.fit_transform(X_train_counts)
+clf = MultinomialNB().fit(X_train_tfidf, y_train)
