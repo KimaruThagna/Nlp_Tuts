@@ -1,6 +1,7 @@
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfTransformer
+from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.naive_bayes import MultinomialNB
 import pandas as pd
 from io import StringIO
@@ -25,3 +26,9 @@ sns.countplot(data=df, x='Product')
 plt.title("Class Distribution")
 plt.xticks(rotation=90)
 plt.show()
+
+# feature extraction
+tfidf = TfidfVectorizer(sublinear_tf=True, min_df=5, norm='l2', encoding='latin-1', ngram_range=(1, 2), stop_words='english')
+features = tfidf.fit_transform(df.Consumer_complaint_narrative).toarray()
+labels = df.category_id
+print(f' Extracted features {features.shape}')
