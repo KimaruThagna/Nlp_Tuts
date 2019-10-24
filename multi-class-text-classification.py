@@ -13,7 +13,7 @@ from sklearn.metrics import confusion_matrix
 import seaborn as sns
 import matplotlib.pyplot as plt
 import numpy as np
-
+from sklearn import metrics
 df = pd.read_csv('datasets/Consumer_Complaints.csv')
 #print(f'Consumer complaints dataset view\n{df.head()}')
 
@@ -109,3 +109,6 @@ for predicted in category_id_df.category_id:
       print("'{}' predicted as '{}' : {} examples.".format(id_to_category[actual], id_to_category[predicted], conf_mat[actual, predicted]))
       print(df.loc[indices_test[(y_test == actual) & (y_pred == predicted)]][['Product', 'Consumer_complaint_narrative']])
       print('')
+
+# classification report
+print(f' Classification report>>>>>>>>>>>>>>>>\n{metrics.classification_report(y_test, y_pred, target_names=df["Product"].unique())}')
